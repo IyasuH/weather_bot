@@ -1,3 +1,4 @@
 {
+    "functions": {"api/index.py":{"includeFiles": "api/weatherAPI.py"}},
     "rewrites":[{"source": "/(.*)", "destination": "/api/index"}]
 }
