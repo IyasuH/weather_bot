@@ -172,7 +172,7 @@ def register_handlers(dispatcher):
     dispatcher.add_handler(CommandHandler("wind", windWeather))
     dispatcher.add_handler(CommandHandler("other", otherWeather))
     dispatcher.add_handler(CommandHandler("city", city))
-    
+    dispatcher.run_polling()
 
 @app.post("/webhook")
 def webhook(webhook_data: TelegramWebhook):
