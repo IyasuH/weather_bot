@@ -5,17 +5,17 @@ import logging
 import os
 import sys
 from telegram import Update, Bot
-from telegram.ext import Application, CommandHandler, ContextTypes, Dispatcher
+from telegram.ext import Application, CommandHandler, ContextTypes
 # from dotenv import dotenv_valueis
 from os import getenv
 
 from typing import Optional
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
-# sys.path.append('..')
+sys.path.append('..')
 
 # import weatherAPI
-from weather_bot import weatherAPI
+import weatherAPI
 # from ... import weatherAPI
 
 TOKEN = os.environ.get("TELEGRAM_TOKEN_KEY")
@@ -100,8 +100,8 @@ def register_handlers(dispatcher):
 @app.post("/webhook")
 def webhook(webhook_data: TelegramWebhook):
     bot = Bot(token=TOKEN)
-    update = Update.de_json(webhook_data, app.bot)
-    dispatcher = Dispatcher(bot, None, workers=4)
+    update = Update.de_json(webhook_data.dict(), bot)
+    dispatcher = Application.builder().token(TOKEN).build()
     register_handlers(dispatcher)
     dispatcher.process_update(update)
     return {"message": "ok"}
