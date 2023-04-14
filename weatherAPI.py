@@ -9,7 +9,6 @@ base_url = "http://api.openweathermap.org/data/2.5/weather?"
 
 
 class WeatherAPI():
-              
     def __init__(self, cityName="Addis Ababa", unit="metric"):
         self.cityName = cityName
         self.unit = unit
