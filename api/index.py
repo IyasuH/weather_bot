@@ -5,7 +5,7 @@ import logging
 import os
 import sys
 from telegram import Update, Bot
-from telegram.ext import Application, CommandHandler, ContextTypes
+from telegram.ext import Application, CommandHandler, ContextTypes, Updater
 # from dotenv import dotenv_valueis
 from os import getenv
 
@@ -172,8 +172,15 @@ def register_handlers(dispatcher):
     dispatcher.add_handler(CommandHandler("wind", windWeather))
     dispatcher.add_handler(CommandHandler("other", otherWeather))
     dispatcher.add_handler(CommandHandler("city", city))
-    dispatcher.run_polling()
+    
 
+
+def main():
+    updater = Updater(TOKEN, use_context=True)
+    application = updater.dispatcher
+    register_handlers(application)
+    application.run_polling()
+        
 @app.post("/webhook")
 def webhook(webhook_data: TelegramWebhook):
     bot = Bot(token=TOKEN)
